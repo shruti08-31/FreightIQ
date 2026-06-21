@@ -1,0 +1,11 @@
+Vehicle_Name,Category,Min_Weight_MT,Max_Weight_MT,Length_mm,Width_mm,Height_mm,Axles,ODC_Allowed,Min_Axles,Max_Axles
+A1 Truck,A1,0.0,5.5,4880.0,2050.0,2050.0,2,Yes,2,2
+A2 Truck,A2,5.5,7.0,4880.0,2050.0,2050.0,2,Yes,2,2
+A3 Truck,A3,7.0,15.0,6700.0,2050.0,2050.0,3,Yes,3,3
+C1 Trailer,C1,15.0,21.0,12200.0,2600.0,2500.0,4,Yes,4,4
+C2 Trailer,C2,21.0,27.0,12200.0,2600.0,2500.0,4,Yes,4,4
+C3 Trailer,C3,27.0,41.0,12200.0,2600.0,2500.0,4,Yes,4,4
+H1 Hydraulic,H1,41.0,54.0,6200.0,2600.0,2500.0,1-4,Yes,1,4
+H2 Hydraulic,H2,54.0,81.0,9300.0,2600.0,2500.0,5-6,Yes,5,6
+H3 Hydraulic,H3,81.0,210.0,12000.0,3000.0,3000.0,8-10,Yes,8,10
+H4 Hydraulic,H4,210.0,216.0,18000.0,3500.0,3500.0,12-16,Yes,12,16
