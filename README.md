@@ -1,66 +1,31 @@
-# FreightIQ: AI Logistics Planning & Recommendation System
+# FreightIQ - AI Logistics Planning & Recommendation System
 
 ## Overview
 
-FreightIQ is an AI-powered Logistics Planning and Recommendation System developed to assist logistics planners in making informed transportation decisions. The platform combines logistics databases, rule-based recommendation engines, route intelligence, packaging planning, and AI-powered analysis into a single decision-support system.
+FreightIQ is an AI-powered Logistics Planning and Recommendation System developed to assist logistics planners in making informed transportation decisions. The platform combines logistics databases, rule-based recommendation engines, route intelligence, packaging planning, dashboard analytics, and AI-powered explanations into a unified decision-support system.
 
 The application helps users evaluate shipment requirements based on cargo weight, dimensions, route information, transporter availability, and packaging constraints while generating intelligent logistics recommendations.
 
 ---
 
+## Problem Statement
+
+Logistics planning often involves analyzing multiple datasets, vehicle specifications, route information, transporter details, and cargo requirements before selecting a suitable transportation solution. Manual evaluation can be time-consuming and prone to inconsistencies.
+
+FreightIQ addresses this challenge by integrating logistics data, recommendation engines, and AI-powered assistance into a single platform that supports faster and more informed decision-making.
+
+---
+
 ## Key Features
 
-### Logistics Dashboard
-
-* Fleet inventory analytics
-* Route database statistics
-* Transporter information
-* ODC-capable fleet insights
-* Logistics network coverage analytics
-
-### Vehicle Recommendation Engine
-
-* Vehicle allocation based on cargo dimensions
-* Weight-based vehicle selection
-* Capacity validation
-* Alternative vehicle recommendations
-
-### ODC Assessment Engine
-
-* Over-Dimensional Cargo (ODC) identification
-* Cargo dimension validation
-* Vehicle suitability assessment
-* Compliance recommendations
-
-### Route Intelligence Engine
-
-* Approved route lookup
-* Distance analysis
-* Origin and destination validation
-* Route availability checks
-
-### Packaging Planning Assistant
-
-* Packaging type recommendation
-* Material planning requirements
-* Engineering drawing assessment
-* Volume and surface area calculations
-* Fragility-based packaging suggestions
-
-### AI Logistics Assistant
-
-* Natural language interaction
-* Shipment analysis
-* Vehicle recommendation explanations
-* Route and logistics guidance
-* AI-powered recommendation reasoning
-
-### Database Lookup Center
-
-* Route information lookup
-* Vehicle database exploration
-* Transporter information access
-* Logistics data search capabilities
+* Logistics Dashboard
+* Vehicle Recommendation Engine
+* ODC Assessment Engine
+* Route Intelligence Engine
+* Packaging Planning Assistant
+* AI Logistics Assistant
+* Database Lookup Center
+* AI-Powered Recommendation Explanations
 
 ---
 
@@ -74,7 +39,7 @@ Business Logic Layer
 ├── Vehicle Recommendation Engine
 ├── ODC Assessment Engine
 ├── Route Intelligence Engine
-├── Packaging Planning Engine
+├── Packaging Planning Assistant
 └── Dashboard Analytics
             │
             ▼
@@ -84,11 +49,29 @@ SQLite Database
 └── Transporters
             │
             ▼
-Gemini AI Layer
+Gemini AI
             │
             ▼
 Recommendations & Explanations
 ```
+
+---
+
+## Why RAG Was Not Used
+
+Retrieval-Augmented Generation (RAG) is generally useful when information is stored in large collections of unstructured documents such as PDFs, reports, manuals, or knowledge bases.
+
+In this project, the required information is already available in structured relational database tables. Vehicle specifications, route distances, transporter details, and logistics constraints can be retrieved directly through database queries and recommendation engines.
+
+Instead of using a vector database and document retrieval pipeline, the system directly accesses structured logistics data and uses Gemini AI to generate explanations and recommendations.
+
+Benefits of this approach include:
+
+* Faster response times
+* Reduced infrastructure complexity
+* Accurate retrieval of structured logistics information
+* Reliable rule-based calculations
+* Lower operational overhead
 
 ---
 
@@ -97,120 +80,44 @@ Recommendations & Explanations
 * Python
 * Streamlit
 * SQLite
-* Google Gemini API
 * Pandas
-
----
-
-## Database Design
-
-The system utilizes a relational SQLite database consisting of:
-
-### Vehicles Table
-
-Stores vehicle specifications including:
-
-* Vehicle category
-* Capacity
-* Axles
-* ODC eligibility
-
-### Distances Table
-
-Stores route information including:
-
-* Origin
-* Destination
-* Distance
-* Route details
-
-### Transporters Table
-
-Stores transporter information including:
-
-* Transporter name
-* Category
-* MSME status
-* Approval details
-
----
-
-## Project Objectives
-
-* Automate logistics planning activities
-* Recommend suitable transportation resources
-* Identify ODC shipment requirements
-* Support route planning decisions
-* Generate packaging recommendations
-* Provide AI-powered logistics assistance
-* Reduce manual effort in logistics operations
-
----
-
-## Installation
-
-### Clone Repository
-
-```bash
-git clone https://github.com/your-username/ai-logistics-planning-system.git
-cd ai-logistics-planning-system
-```
-
-### Create Virtual Environment
-
-```bash
-python -m venv .venv
-```
-
-### Activate Environment
-
-#### Windows
-
-```bash
-.venv\Scripts\activate
-```
-
-#### Linux / Mac
-
-```bash
-source .venv/bin/activate
-```
-
-### Install Dependencies
-
-```bash
-pip install -r requirements.txt
-```
-
-### Run Application
-
-```bash
-streamlit run Homepage.py
-```
+* Google Gemini API
 
 ---
 
 ## Future Enhancements
 
-* PostgreSQL/MySQL integration
+* PostgreSQL or MySQL integration
 * Real-time shipment tracking
 * Advanced route optimization
-* Transporter recommendation engine
 * Predictive logistics analytics
-* Role-based access control
+* Transporter recommendation engine
 * Automated logistics report generation
+* Role-based access control
+
+---
+
+## Academic Context
+
+This project was developed during a Summer Internship at Bharat Heavy Electricals Limited (BHEL), Haridwar.
+
+Program:
+B.Tech Artificial Intelligence and Data Science Engineering
+
+Specialization:
+Transportation and Logistics
+
+Institution:
+Gati Shakti Vishwavidyalaya
 
 ---
 
 ## Author
 
-**Shruti Prasad**
-B.Tech Artificial Intelligence and Data Science Engineering
-Specialization: Transportation and Logistics
-Gati Shakti Vishwavidyalaya
+Shruti Prasad
 
 ---
 
 ## Disclaimer
 
-This project was developed as part of an internship and is intended for educational and demonstration purposes. Any company-specific operational data has been excluded from the public version of the project.
+This repository contains a demonstration version of the project. Company-specific operational data and confidential information have been excluded from the public release.
