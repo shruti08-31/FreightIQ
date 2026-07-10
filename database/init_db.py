@@ -4,7 +4,6 @@ from database.db import get_connection
 
 
 def initialize_database():
-
     conn = get_connection()
 
     ROOT_DIR = os.path.dirname(
@@ -13,63 +12,53 @@ def initialize_database():
         )
     )
 
-    # CSV Files
-    vehicle_file = os.path.join(
-        ROOT_DIR,
-        "vehicle_master.csv"
-    )
+    # File paths
+    vehicle_file = os.path.join(ROOT_DIR, "vehicle_master.csv")
+    distance_file = os.path.join(ROOT_DIR, "distance_data.csv")
+    transporter_file = os.path.join(ROOT_DIR, "Transporter_updated_details.csv")
+    shipment_pred_file = os.path.join(ROOT_DIR, "shipment_prediction_data.xlsx")
+    distance_pred_file = os.path.join(ROOT_DIR, "distance_Prediction_data.csv")
 
-    distance_file = os.path.join(
-        ROOT_DIR,
-        "distance_data.csv"
-    )
+    # Check if files exist
+    files = [
+        vehicle_file,
+        distance_file,
+        transporter_file,
+        shipment_pred_file,
+        distance_pred_file,
+    ]
 
-    transporter_file = os.path.join(
-        ROOT_DIR,
-        "Transporter_updated_details.csv"
-    )
+    for file in files:
+        if not os.path.exists(file):
+            raise FileNotFoundError(f"File not found: {file}")
 
-    print(f"Vehicle CSV: {vehicle_file}")
-    print(f"Distance CSV: {distance_file}")
-    print(f"Transporter CSV: {transporter_file}")
-
-    # Read CSVs
+    # Read files
     vehicle_df = pd.read_csv(vehicle_file)
     distance_df = pd.read_csv(distance_file)
     transporter_df = pd.read_csv(transporter_file)
+    shipment_pred_df = pd.read_excel(shipment_pred_file)
+    distance_pred_df = pd.read_csv(distance_pred_file)
 
+    # Print record counts
     print(f"Vehicles Records: {len(vehicle_df)}")
     print(f"Distance Records: {len(distance_df)}")
     print(f"Transporter Records: {len(transporter_df)}")
+    print(f"Shipment Prediction Records: {len(shipment_pred_df)}")
+    print(f"Distance Prediction Records: {len(distance_pred_df)}")
 
-    # Load into SQLite
-    vehicle_df.to_sql(
-        "vehicles",
-        conn,
-        if_exists="replace",
-        index=False
-    )
-
-    distance_df.to_sql(
-        "distances",
-        conn,
-        if_exists="replace",
-        index=False
-    )
-
-    transporter_df.to_sql(
-        "transporters",
-        conn,
-        if_exists="replace",
-        index=False
-    )
+    # Store data into SQLite
+    vehicle_df.to_sql("vehicles", conn, if_exists="replace", index=False)
+    distance_df.to_sql("distances", conn, if_exists="replace", index=False)
+    transporter_df.to_sql("transporters", conn, if_exists="replace", index=False)
+    shipment_pred_df.to_sql("shipment_predictions", conn, if_exists="replace", index=False)
+    distance_pred_df.to_sql("distance_predictions", conn, if_exists="replace", index=False)
 
     conn.commit()
     conn.close()
 
-    print("✅ Database initialized successfully")
+    print(" Database initialized successfully with all 5 tables")
 
 
 if __name__ == "__main__":
-    print("🚀 Starting database initialization...")
+    print("Starting database initialization...")
     initialize_database()
