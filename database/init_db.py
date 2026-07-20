@@ -18,6 +18,7 @@ def initialize_database():
     transporter_file = os.path.join(ROOT_DIR, "Transporter_updated_details.csv")
     shipment_pred_file = os.path.join(ROOT_DIR, "shipment_prediction_data.xlsx")
     distance_pred_file = os.path.join(ROOT_DIR, "distance_Prediction_data.csv")
+    packaging_file = os.path.join(ROOT_DIR, "Packaging_Dataset.xlsx")
 
     # Check if files exist
     files = [
@@ -26,6 +27,7 @@ def initialize_database():
         transporter_file,
         shipment_pred_file,
         distance_pred_file,
+        packaging_file,
     ]
 
     for file in files:
@@ -38,6 +40,7 @@ def initialize_database():
     transporter_df = pd.read_csv(transporter_file)
     shipment_pred_df = pd.read_excel(shipment_pred_file)
     distance_pred_df = pd.read_csv(distance_pred_file)
+    packaging_df = pd.read_excel(packaging_file)
 
     # Print record counts
     print(f"Vehicles Records: {len(vehicle_df)}")
@@ -45,6 +48,7 @@ def initialize_database():
     print(f"Transporter Records: {len(transporter_df)}")
     print(f"Shipment Prediction Records: {len(shipment_pred_df)}")
     print(f"Distance Prediction Records: {len(distance_pred_df)}")
+    print(f"Packaging Records: {len(packaging_df)}")
 
     # Store data into SQLite
     vehicle_df.to_sql("vehicles", conn, if_exists="replace", index=False)
@@ -52,13 +56,14 @@ def initialize_database():
     transporter_df.to_sql("transporters", conn, if_exists="replace", index=False)
     shipment_pred_df.to_sql("shipment_predictions", conn, if_exists="replace", index=False)
     distance_pred_df.to_sql("distance_predictions", conn, if_exists="replace", index=False)
+    packaging_df.to_sql("packaging", conn, if_exists="replace", index=False)
 
     conn.commit()
     conn.close()
 
-    print(" Database initialized successfully with all 5 tables")
+    print("✅ Database initialized successfully with all 6 tables")
 
 
 if __name__ == "__main__":
-    print("Starting database initialization...")
+    print("🚀 Starting database initialization...")
     initialize_database()
