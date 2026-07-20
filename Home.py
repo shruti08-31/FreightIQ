@@ -1,8 +1,6 @@
 import streamlit as st
 
-# ==================================================
 # PAGE CONFIG
-# ==================================================
 st.set_page_config(
     page_title="CDX FreightIQ",
     page_icon="🚛",
@@ -10,9 +8,8 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# ==================================================
 # PREMIUM ENTERPRISE STYLING & SIDEBAR UI OVERHAUL
-# ==================================================
+
 st.markdown("""
 <style>
 #MainMenu {visibility:hidden;} footer {visibility:hidden;} header {visibility:hidden;}
@@ -215,11 +212,8 @@ section[data-testid="stSidebar"] [aria-current="page"] {
 </style>
 """, unsafe_allow_html=True)
 
-# ==================================================
-# SIDEBAR CUSTOM COMPONENT BUILDER
-# ==================================================
 with st.sidebar:
-    # 2. Sidebar Premium Header Block
+    # 2. Sidebar Header Block
     st.markdown("""
     <div style="
         text-align: center;
@@ -232,11 +226,8 @@ with st.sidebar:
     </div>
     """, unsafe_allow_html=True)
     
-    # 4. Sidebar Branding Footer Block (Pushed downward naturally by layout)
-    # Note: Streamlit pages list renders here dynamically between the header and footer blocks.
     st.sidebar.markdown("<br><br>", unsafe_allow_html=True)
-    
-    # Simple semantic rule line wrapper separating nav options from platform status
+
     st.markdown("<hr style='margin: 10px 0; border: 0; border-top: 1px solid #1E293B;'>", unsafe_allow_html=True)
     st.caption("""
     **CDX FreightIQ v1.0** Powered by:  
@@ -244,9 +235,8 @@ with st.sidebar:
     SQLite • Gemini AI
     """)
 
-# ==================================================
 # 1. WELCOME BANNER & PROFESSIONAL PIPELINE
-# ==================================================
+
 st.markdown("""
 <div class="hero-card">
     <div class="dept-badge">Heavy Electrical Equipment Plant — Central Despatch Division</div>
@@ -269,12 +259,12 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
-# ==================================================
+
 # 2. INTERACTIVE ON-DEMAND SYSTEM SECTIONS
-# ==================================================
+
 st.markdown('<div class="sub-section-header">System Insights & User Guidance</div>', unsafe_allow_html=True)
 
-# Interactive Section 1: Platform Functional Capabilities
+
 with st.expander("Platform Functional Capabilities", expanded=False):
     st.markdown("<div style='margin-top: 10px;'></div>", unsafe_allow_html=True)
     col_cap1, col_cap2 = st.columns(2)
@@ -357,9 +347,9 @@ with st.expander("New Here? Recommended Operations Order", expanded=False):
     </div>
     """, unsafe_allow_html=True)
 
-# ==================================================
+
 # 3. FOOTER ABOUT PROJECT
-# ==================================================
+
 st.markdown("""
 <div class="footer-box">
     <div class="footer-title">About CDX FreightIQ</div>
