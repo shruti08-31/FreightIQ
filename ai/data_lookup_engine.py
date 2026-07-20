@@ -6,11 +6,6 @@ from database.data_lookup_db import (
     get_transporter_details
 )
 from database.db import get_connection
-
-# ==================================================
-# GLOBAL NORMALIZATION HELPER
-# ==================================================
-
 def normalize(value):
     """Strips whitespace and normalizes string values to uppercase for robust indexing."""
     return str(value).strip().upper() if value is not None else ""
@@ -18,19 +13,13 @@ def normalize(value):
 def row_to_dict(row):
     """Converts a database row object to a standard Python dictionary."""
     return dict(row) if row is not None else None
-
-
-# ==================================================
 # ROUTES
-# ==================================================
-
 def lookup_route(origin="", destination=""):
     """
     Looks up route details based on origin and/or destination.
     """
     origin = normalize(origin)
     destination = normalize(destination)
-
     # Case 1: Both origin and destination are provided
     if origin and destination:
         route = get_route(origin, destination)
@@ -50,7 +39,6 @@ def lookup_route(origin="", destination=""):
 
     # Case 3: Missing required parameters
     return {"error": "Provide at least an origin to search routes"}
-
 
 def add_route(origin, destination, distance_km):
     origin = normalize(origin)
@@ -168,11 +156,7 @@ def delete_route(origin, destination):
     finally:
         conn.close()
 
-
-# ==================================================
 # VEHICLES
-# ==================================================
-
 def lookup_vehicle(vehicle_name):
     """
     Retrieves vehicle specification details by name.
@@ -300,11 +284,7 @@ def delete_vehicle(vehicle_name):
     finally:
         conn.close()
 
-
-# ==================================================
 # TRANSPORTERS
-# ==================================================
-
 def lookup_transporter(name):
     """
     Retrieves transporter profiles by name.
