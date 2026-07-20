@@ -1,9 +1,10 @@
 import streamlit as st
-from ai.gemini_service import get_ai_response
+from ai.vehicle_engine import recommend_vehicle
+from ai.analytics import get_dashboard_metrics
 
-# ==================================================
+from ai.gemini_service import get_ai_response 
+
 # PAGE CONFIG
-# ==================================================
 st.set_page_config(
     page_title="CDX AI Assistant",
     page_icon="🤖",
@@ -11,9 +12,6 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# ==================================================
-# CUSTOM CSS & SIDEBAR UI OVERHAUL
-# ==================================================
 st.markdown("""
 <style>
 #MainMenu {visibility:hidden;} footer {visibility:hidden;} header {visibility:hidden;}
@@ -24,56 +22,26 @@ st.markdown("""
     max-width: 1100px;
 }
 
-/* Base text formatting for professional appearance */
-p, li {
-    font-size: 0.95rem !important;
-    line-height: 1.6 !important;
-    color: #E2E8F0 !important;
-}
-
-/* Headings enhancement */
-h1 {
-    font-weight: 700 !important;
-    letter-spacing: -0.02em !important;
-}
-
-h3 {
-    font-weight: 600 !important;
-    color: #94A3B8 !important;
-    font-size: 1.1rem !important;
-    margin-top: 1.5rem !important;
-}
-
-/* Stylized welcome container for clean segregation */
+/* Simplified CSS for student-project look */
 .welcome-box {
     background: #111827;
     border: 1px solid #1F2937;
     border-radius: 12px;
-    padding: 24px 32px;
-    margin-bottom: 2rem;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-bottom: 1.5rem;
 }
 
-.example-card{
-    background:#111827;
-    border:1px solid #1F2937;
-    border-radius:12px;
-    padding:12px;
-    margin-bottom:10px;
-}
-
-/* Clearer list item separation */
-ul {
-    margin-bottom: 1rem !important;
-    padding-left: 1.25rem !important;
-}
-
-li {
-    margin-bottom: 0.4rem !important;
+.example-card {
+    background: #111827;
+    border: 1px solid #1F2937;
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 10px;
+    min-height: 140px;
 }
 
 /* ==================================================
-   ADVANCED SIDEBAR INTERACTIVE STYLING
+   ADVANCED SIDEBAR INTERACTIVE STYLING (KEPT EXACTLY AS IS)
    ================================================== */
 section[data-testid="stSidebar"] {
     background-color: #0F172A;
@@ -124,11 +92,8 @@ div.stSidebar div.stButton > button:hover {
 </style>
 """, unsafe_allow_html=True)
 
-# ==================================================
-# PREMIUM SIDEBAR IMPLEMENTATION
-# ==================================================
 with st.sidebar:
-    # Sidebar Premium Header Block
+
     st.markdown("""
     <div style="
         text-align: center;
@@ -157,96 +122,78 @@ How can I help you today?
         ]
         st.rerun()
 
-    st.markdown("<hr style='margin: 20px 0 15px 0; border: 0; border-top: 1px solid #1E293B;'>", unsafe_allow_html=True)
-    st.markdown('<div style="font-size:11px; font-weight:600; color:#64748B; text-transform:uppercase; letter-spacing:0.75px; margin-bottom:10px; padding-left:2px;">Suggested Prompts</div>', unsafe_allow_html=True)
-    
-    st.markdown("""
-<div style="font-size: 12.5px; color: #94A3B8; line-height: 1.5; padding: 0 2px;">
-• Recommend transport configuration for a 350 MT BHEL Steam Turbine Generator from Haridwar plant<br><br>
-• Is ODC regulatory clearance and route survey required for a 500 MVA Transformer?<br><br>
-• Analyze civil infrastructure and bridge load capacities between Jhansi and Chennai port<br><br>
-• Check availability of 24-row hydraulic multi-axle modular trailers for heavy equipment dispatch<br><br>
-• Show transit risk matrix and infrastructure bottlenecks for consignment clearance on North-South corridors<br><br>
-• Compare operational turn-radius and load stability of mechanical vs hydraulic trailers for power plant logistics<br><br>
-• Provide maximum axle-load specifications and structural safety margins for heavy-haul transport units
-</div>
-""", unsafe_allow_html=True)
-
     # Sidebar Branding Footer Block
     st.sidebar.markdown("<br>", unsafe_allow_html=True)
-    st.markdown("<hr style='margin: 10px 0; border: 0; border-top: 1px solid #1E293B;'>", unsafe_allow_html=True)
+    st.sidebar.markdown("<hr style='margin: 10px 0; border: 0; border-top: 1px solid #1E293B;'>", unsafe_allow_html=True)
+    
     st.caption("""
     **CDX FreightIQ v1.0** Powered by:  
     Python • Streamlit  
-    SQLite • Gemini AI
+    Groq • Llama-3.3-70b
     """)
 
-# ==================================================
-# HEADER
-# ==================================================
-st.title("CDX AI Assistant")
+st.title("🚚 CDX Logistics Assistant")
+st.caption("AI-powered assistant for logistics planning, routing, fleet recommendations, and ODC analysis.")
 
-st.caption(
-    """
-    Ask anything about logistics operations,
-    vehicle recommendations, route planning,
-    ODC requirements, transporters and fleet analytics.
-    """
-)
+st.divider()
 
-st.write("") # Structural spacing element
+st.subheader("Example Queries")
+
+col1, col2, col3 = st.columns(3)
+
+with col1:
+    st.markdown("""
+    <div class="example-card">
+    <strong>📦 Vehicle Recommendation</strong><br><br>
+    Recommend a vehicle for transporting a 35 MT transformer from Agra to Mumbai with dimensions 8000 × 2400 × 3000 mm.
+    </div>
+    """, unsafe_allow_html=True)
+
+with col2:
+    st.markdown("""
+    <div class="example-card">
+    <strong>🛣️ Route Analysis</strong><br><br>
+    Analyze current route configurations, civil restrictions, and infrastructure bottlenecks between Delhi and Chennai.
+    </div>
+    """, unsafe_allow_html=True)
+
+with col3:
+    st.markdown("""
+    <div class="example-card">
+    <strong>⚠️ ODC Check</strong><br><br>
+    Is ODC regulatory clearance required for an infrastructure consignment measuring 14000 × 3500 × 4500 mm?
+    </div>
+    """, unsafe_allow_html=True)
+
+st.divider()
 
 # ==================================================
-# SESSION STATE
+# SESSION STATE & SIMPLE WELCOME TEXT
 # ==================================================
 if "messages" not in st.session_state:
     st.session_state.messages = [
         {
             "role": "assistant",
             "content": """
-<div class="welcome-box">
+### Welcome
 
-I am your deployment and routing intelligence agent. You can ask me query setups regarding:
+This assistant helps with logistics planning and transportation queries. 
 
-• Optimal vehicle allocation based on weight, volume, and material type
-• Regulatory Over-Dimensional Cargo (ODC) sizing and clearance assessments
-• Route hazard, infrastructure bottlenecks, and transit-time analysis
-• Fleet breakdown tracking, driver availability, and carrier utilization metrics
-• Historical spot rates, contract lane benchmarks, and cost efficiency performance
-
-Simply submit your operational parameters or metrics into the terminal input box.
-
-### Direct Query Formats:
-
-- Recommend vehicle for 35 MT cargo from AGRA to MUMBAI with dimensions 8000 x 2400 x 3000 mm.
-- Is ODC regulatory clearance needed for an infrastructure consignment sized 14000 x 3500 x 4500 mm?
-- Analyze current route configurations and restrictions between DELHI and CHENNAI.
-- Provide a summary of active carrier capacity and transporter availability matrices.
-</div>
+Enter your query below or use one of the example configurations above to get started.
 """
         }
     ]
 
-# ==================================================
 # DISPLAY CHAT
-# ==================================================
+
 for message in st.session_state.messages:
     with st.chat_message(message["role"]):
-        st.markdown(
-            message["content"],
-            unsafe_allow_html=True
-        )
+        st.markdown(message["content"], unsafe_allow_html=True)
 
-# ==================================================
-# CHAT INPUT
-# ==================================================
-user_input = st.chat_input(
-    "Ask CDX AI anything..."
-)
+# CHAT INPUT & PROCESSOR
 
-# ==================================================
-# RESPONSE
-# ==================================================
+user_input = st.chat_input("Describe your shipment or logistics requirement...")
+
 if user_input:
     st.session_state.messages.append(
         {
@@ -259,7 +206,7 @@ if user_input:
         st.markdown(user_input)
 
     with st.chat_message("assistant"):
-        with st.spinner("Analyzing logistics data..."):
+        with st.spinner("Processing your request..."):
             try:
                 response = get_ai_response(user_input)
             except Exception as e:
@@ -272,3 +219,8 @@ if user_input:
             "content": response
         }
     )
+
+st.divider()
+st.caption("""
+**Built using:** Python • Streamlit • Groq API 
+""")
