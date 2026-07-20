@@ -61,9 +61,9 @@ def initialize_database():
     conn.commit()
     conn.close()
 
-    print("✅ Database initialized successfully with all 6 tables")
+    print("Database initialized successfully with all 6 tables")
 
 
 if __name__ == "__main__":
-    print("🚀 Starting database initialization...")
+    print("Starting database initialization...")
     initialize_database()
