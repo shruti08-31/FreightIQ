@@ -170,37 +170,39 @@ def get_interactive_routes(min_km, max_km, origin_filter=None):
 
     try:
         query = """
-            SELECT
-                origin,
-                destination,
-                distance_km,
-                CASE
-                    WHEN distance_km < 300 THEN 'Short Corridor'
-                    WHEN distance_km < 1000 THEN 'Medium Corridor'
-                    ELSE 'Long Corridor'
-                END as route_type,
-                'Standard Freight Route' as description,
-                '2025-Updated' as last_updated,
-                'AUTO-APPROVED' as approval_no
-            FROM distances
-            WHERE distance_km BETWEEN ? AND ?
+        SELECT
+            TRIM(origin),
+            TRIM(destination),
+            CAST(distance_km AS INTEGER),
+            CASE
+                WHEN CAST(distance_km AS INTEGER) < 300 THEN 'Short Corridor'
+                WHEN CAST(distance_km AS INTEGER) < 1000 THEN 'Medium Corridor'
+                ELSE 'Long Corridor'
+            END,
+            'Standard Freight Route',
+            '2025-Updated',
+            'AUTO-APPROVED'
+        FROM distances
+        WHERE CAST(distance_km AS INTEGER) BETWEEN ? AND ?
         """
 
         params = [min_km, max_km]
 
         if origin_filter:
-            query += " AND UPPER(origin) LIKE ?"
-            params.append(f"%{origin_filter}%")
+            query += """
+            AND TRIM(UPPER(origin)) = TRIM(UPPER(?))
+            """
+            params.append(origin_filter)
 
         rows = conn.execute(query, params).fetchall()
 
-        return [list(r) for r in rows]
+        print("Params:", params)
+        print("Rows:", rows[:5])
 
+        return [list(r) for r in rows]
     finally:
         conn.close()
 
-
-# =====================================================
 # TRANSPORTER SUMMARY (OPTIONAL EXTENSION)
 # =====================================================
 
@@ -233,3 +235,22 @@ def analytics_report():
         "top_origins": get_top_route_origins(),
         "interactive_routes": get_interactive_routes(0, 99999)
     }
+
+# =====================================================
+# GET ALL ORIGINS (FOR SEARCH DROPDOWN)
+# =====================================================
+
+def get_origin_list():
+    conn = get_connection()
+
+    try:
+        rows = conn.execute("""
+            SELECT DISTINCT origin
+            FROM distances
+            ORDER BY origin
+        """).fetchall()
+
+        return [r[0] for r in rows]
+
+    finally:
+        conn.close()
