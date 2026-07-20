@@ -1,10 +1,6 @@
 from database.db import get_connection
 
-
-# ==========================================
 # DISTANCE LOOKUP
-# ==========================================
-
 def get_route(origin, destination):
 
     conn = get_connection()
@@ -61,10 +57,7 @@ def get_destinations(origin):
     return [r["destination"] for r in rows]
 
 
-# ==========================================
 # VEHICLES
-# ==========================================
-
 def get_all_vehicles():
 
     conn = get_connection()
@@ -98,14 +91,8 @@ def get_vehicle_details(vehicle):
     conn.close()
 
     return row
-
-
-# ==========================================
+    
 # TRANSPORTERS
-# ==========================================
-# ==========================
-# TRANSPORTERS
-# ==========================
 
 def get_all_transporters():
 
