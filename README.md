@@ -402,9 +402,13 @@ Gati Shakti Vishwavidyalaya
 
 ---
 
-# 👩‍💻 Author
+## 👩‍💻 Author
 
 **Shruti Prasad**
+
+- GitHub: https://github.com/shruti08-31
+- LinkedIn: https://www.linkedin.com/in/shruti-prasad-35123636b/
+
 
 ---
 
