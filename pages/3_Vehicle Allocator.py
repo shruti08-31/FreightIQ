@@ -1,7 +1,5 @@
 import streamlit as st
 import pandas as pd
-
-# Import the updated consolidation backend engine functions
 from ai.vehicle_engine import (
     consolidate_shipments, 
     evaluate_single_shipment_addition, 
@@ -9,9 +7,7 @@ from ai.vehicle_engine import (
     ai_optimize_load_plan
 )
 
-# ==================================================
-# 1. PAGE SETUP & MASTER STYLING CONFIG
-# ==================================================
+# 1. PAGE SETUP 
 st.set_page_config(
     page_title="FreightIQ | Multi-Shipment Optimizer",
     page_icon="🚛",
